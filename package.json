@@ -11,7 +11,7 @@
     "parcel": "^2.2.1"
   },
   "scripts": {
-    "front:c": "parcel index.c.html",
+    "front:client": "parcel index.client.html",
     "front:comp": "parcel index.comp.html",
     "server": "node server.js"
   }

@@ -84,7 +84,7 @@ ZoomMtg.join({
 - index.js
 - embedded.js
 - dist
-  - css (=vendor css를 별도로 import해야하는 듯)
+  - css
     - bootstrap.css
     - react-select.css
   - fonts
@@ -108,3 +108,42 @@ ZoomMtg.join({
 - 기본 css는 js파일에 포함되어있음
 - 사용하려면 webpack 사용해야함. es 모듈 환경에선 클라이언트뷰는 제대로 동작안함...
   - 그래도 잘돌아가는 github 예제가 있음.
+- 컴포넌트 뷰에선 커스텀 버튼을 추가할 수 있음.
+
+---
+
+별개로
+
+## Embed 어떻게 할까?
+
+- iframe 활용하지 않고, 스크립트를 활용한 런타임 통합
+  - Javascript를 통한 런타임 통합: iframe과 달리 유연한 통합이 가능하다. 현실적으로 가장 많이 사용하는 방식이다.
+    - 컨테이너 애플리케이션을 단위 애플리케이션 번들을 `<script>` 태그를 통합 다운로드 받고
+    - 약속된 초기화 메소드를 호출한다.
+    - 클라이언트측에서 (브라우져) 통합한다.
+    - 출처: https://mobicon.tistory.com/572 [Mobile Convergence]
+- framework는 svelte 유지.
+  - 2가지 장점을 가져갈 수 있음 = 번들 사이즈 최소화 + 코드 변경 최소화
+
+## sdk 사용 시나리오
+
+- zoom의 클라이언트 뷰와 유사할 듯 (=정해진 영역 전체를 사용하는 것)
+- create 호출하면 대기실 뷰가 생김.
+
+```ts
+import ConnectLiveEmbed from '@kep/connectlive-embed-sdk';
+
+ConnectLiveEmbed.create({
+  target: 'icl-embed-root',
+  options: { ... }, // 일단은 css 수정 + 버튼 라벨 수정
+  onSuccess: () => {},
+  onFailure: () => {}
+});
+
+// UI 조작 없이
+ConnectLiveEmbed.join();
+ConnectLiveEmbed.leave();
+
+// iframe 제거
+ConnectLiveEmbed.remove();
+```

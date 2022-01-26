@@ -1,6 +1,8 @@
 import "dotenv/config";
 import { ZoomMtg } from "@zoomus/websdk";
 
+// 아래 예시는 제대로 동작하질 않음...
+
 const API_KEY = process.env.API_KEY;
 const MEETING_NUMBER = process.env.MEETING_NUMBER;
 const MEETING_PASSWORD = process.env.MEETING_PASSWORD;
